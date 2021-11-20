@@ -37,18 +37,23 @@
                                 <a class="nav-link active" aria-current="page" href="index.jsp">Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="CategoriaServlet?accion=listaDeCategorias">Listado De Categorias</a>
+                                <a class="nav-link" href="CategoriaServlet?accion=listaDeCategorias">Categorias</a>
                             </li>
-                            <li class="nav-item">
+<!--                            <li class="nav-item">
                                 <a class="nav-link" href="CategoriaServlet?accion=nuevo">Nueva Categoria</a>
-                            </li>
+                            </li>-->
                             <li class="nav-item">
-                                <a class="nav-link" href="ProductoServlet?accion=listaDeProductos">Listado de Productos</a>
+                                <a class="nav-link" href="ProductoServlet?accion=listaDeProductos">Productos</a>
                             </li>
-                            <li class="nav-item">
+<!--                            <li class="nav-item">
                                 <a class="nav-link" href="ProductoServlet?accion=nuevo">Nuevo Producto</a>
+                            </li>-->
+                            <li class="nav-item">
+                                <a class="nav-link" href="UsuarioServlet?accion=listaDeUsuarios">Usuarios</a>
                             </li>
-
+<!--                            <li class="nav-item">
+                                <a class="nav-link" href="UsuarioServlet?accion=nuevo">Nuevo Usuario</a>
+                            </li>-->
                         </ul>
                     </div>
                 </div>

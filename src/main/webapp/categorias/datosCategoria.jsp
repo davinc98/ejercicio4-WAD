@@ -19,34 +19,43 @@
         <title>Datos de Categoria</title>
     </head>
     <body>
-        <h1>Categoria</h1>
 
         <div class="container">
 
+            <h1>Ver Categoría</h1>
+
+            
+            
+            
 
 
-
-
-            <div class="card bg-light">
-                <div class="card-header">
-                    <h3 class="text-center">Datos de Categoria</h3>
+            <center>
+                <div class="col-sm-4">
+                    <div class="card bg-light">
+                        <div class="card-header">
+                            <h3 class="text-center">Categoría</h3>
+                        </div>
+                        <div class="card-body">
+                            <img src="./imagenes/graycat.png" alt="" width="200" class="d-inline-block align-text-top">
+                            <br/><br/>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    Id: 
+                                    <b><c:out value=" ${categoria.entidad.idCategoria}" /></b>
+                                </li>
+                                <li class="list-group-item">
+                                    Nombre Categoría:
+                                    <b><c:out value=" ${categoria.entidad.nombreCategoria}" /></b>
+                                </li>
+                                <li class="list-group-item">
+                                    Descripción:
+                                    <b><c:out value=" ${categoria.entidad.descripcionCategoria}" /></b>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <img src="./imagenes/bootstrap-logo.svg" alt="" width="200" height="240" class="d-inline-block align-text-top">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <c:out value="${categoria.entidad.idCategoria}" />
-                        </li>
-                        <li class="list-group-item">
-                            <c:out value="${categoria.entidad.nombreCategoria}" />
-                        </li>
-                        <li class="list-group-item">
-                            <c:out value="${categoria.entidad.descripcionCategoria}" />
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
+            </center>
         </div>
     </body>
 </html>

@@ -5,7 +5,9 @@
  */
 package com.ipn.mx.controlador;
 
+import com.ipn.mx.modelo.dao.CategoriaDAO;
 import com.ipn.mx.modelo.dao.ProductoDAO;
+import com.ipn.mx.modelo.dto.CategoriaDTO;
 import com.ipn.mx.modelo.dto.ProductoDTO;
 import java.io.IOException;
 import java.util.Collection;
@@ -139,7 +141,17 @@ public class ProductoServlet extends HttpServlet {
         ProductoDTO dto = new ProductoDTO();
         dto.getEntidad().setIdProducto(Integer.parseInt(request.getParameter("id")));
 
-        dao.delete(dto);
+        dto = dao.delete(dto);
+        
+        if(dto!= null){
+            request.setAttribute("mensaje", "<b>"+dto.getEntidad().getNombreProducto()+"</b> eliminado correctamente.");
+            request.setAttribute("alert", "alert-warning");
+        }else{
+            request.setAttribute("mensaje", "Ocurrio un error al eliminar <b>"+dto.getEntidad().getNombreProducto()+"</b>.");
+            request.setAttribute("alert", "alert-danger");
+        }    
+        
+        
         listaDeProductos(request, response);
     }
 
@@ -180,6 +192,9 @@ public class ProductoServlet extends HttpServlet {
     private void almacenarProducto(HttpServletRequest request, HttpServletResponse response) {
         ProductoDAO dao = new ProductoDAO();
         ProductoDTO dto = new ProductoDTO();
+        
+        CategoriaDAO daoC = new CategoriaDAO();
+        CategoriaDTO dtoC = new CategoriaDTO();
 
         if (!request.getParameter("txtIdProducto").equals("")) {
             dto.getEntidad().setIdProducto(Integer.parseInt(request.getParameter("txtIdProducto")));
@@ -190,13 +205,21 @@ public class ProductoServlet extends HttpServlet {
         dto.getEntidad().setPrecio(Float.parseFloat(request.getParameter("txtPrecio")));
         dto.getEntidad().setExistencia(Integer.parseInt(request.getParameter("txtExistencia")));
         dto.getEntidad().setStockMinimo(Integer.parseInt(request.getParameter("txtStock")));
-//        dto.getEntidad().setClaveCategoria(Integer.parseInt(request.getParameter("txtClaveCategoria")));
+        
+        //Recuerar la entidad de Categoria
+        dtoC.getEntidad().setIdCategoria(Integer.parseInt(request.getParameter("txtClaveCategoria")));
+        dtoC = daoC.read(dtoC);
+        
+        dto.getEntidad().setClaveCategoria(dtoC.getEntidad());
+
         if (!request.getParameter("txtIdProducto").equals("")) {//CREAR
             dao.update(dto);
-            request.setAttribute("mensaje", "Producto actualizado con exito.");
+            request.setAttribute("mensaje", "<b>"+dto.getEntidad().getNombreProducto()+"</b> actualizado con exito.");
+            request.setAttribute("alert", "alert-warning");
         } else {
             dao.create(dto);
-            request.setAttribute("mensaje", "Producto almacenado con exito.");
+            request.setAttribute("mensaje", "<b>"+dto.getEntidad().getNombreProducto()+"</b> almacenado con exito.");
+            request.setAttribute("alert", "alert-success");
         }
         listaDeProductos(request, response);
 

@@ -19,53 +19,78 @@
         <title>Formulario Categoria</title>
     </head>
     <body>
-        
-        
-        
-        
-        <h1>Actualizar Categoria</h1>
+
+        <div class="container">
+
+            <center>
+
+                
+                
+                
+                
 
 
-        <div class="card border-primary">
-            <div class="card header">
-                <h1 class="text-center">Datos Categoria</h1>
-            </div>
-            <div class="card card-body">
-                <form method="post" action="CategoriaServlet?accion=guardar">
-                    <div class="mb-3">
-                        <label class="form-label">ID </label>
-                        <input type="text" 
-                               name="txtIdCategoria" 
-                               id="txtIdCategoria" 
-                               placeholder="Id de la categoria"
-                               readonly value="<c:out value="${categoria.entidad.idCategoria}"/>"
-                               class="form-control" />
+                <div class="col-sm-4">
+
+                    <div class="card bg-light">
+                        <div class="card header">
+                            <c:if test="${categoria.entidad.idCategoria != null}">
+                                <h3>Actualizar Categoria</h3>
+                            </c:if>
+                            <c:if test="${categoria.entidad.idCategoria == null}">
+                                <h3>Crear Categoria</h3>
+                            </c:if>
+                        </div>
+                        <div class="card card-body">
+                            <center>
+                                <img src="./imagenes/graycat.png" alt="" width="200">
+                                <br/><br/>
+
+                                <form method="post" action="CategoriaServlet?accion=guardar">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+
+                                            <div class="mb-3">
+                                                <label class="form-label">ID: </label>
+                                                <input type="text" 
+                                                       name="txtIdCategoria" 
+                                                       id="txtIdCategoria" 
+                                                       placeholder="Id de la categoria"
+                                                       readonly value="<c:out value="${categoria.entidad.idCategoria}"/>"
+                                                       class="form-control" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Nombre: </label>
+                                                <input type="text" 
+                                                       name="txtNombreCategoria" 
+                                                       id="txtNombreCategoria" 
+                                                       placeholder="Nombre de la categoria"
+                                                       required
+                                                       maxlenght="50"
+                                                       value="<c:out value="${categoria.entidad.nombreCategoria}"/>"
+                                                       class="form-control" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Descripción: </label>
+                                                <input type="text" 
+                                                       name="txtDescripcionCategoria" 
+                                                       id="txtDescripcionCategoria" 
+                                                       placeholder="Descripcion de la categoria"
+                                                       required
+                                                       maxlenght="100"
+                                                       value="<c:out value="${categoria.entidad.descripcionCategoria}"/>"
+                                                       class="form-control" />
+                                            </div>
+                                            <button type="submit" class="btn btn-outline-primary">Guadar Cambios</button>     
+
+                                        </li>
+                                    </ul>
+                                </form>
+                            </center>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Nombre: </label>
-                        <input type="text" 
-                               name="txtNombreCategoria" 
-                               id="txtNombreCategoria" 
-                               placeholder="Nombre de la categoria"
-                               required
-                               maxlenght="50"
-                               value="<c:out value="${categoria.entidad.nombreCategoria}"/>"
-                               class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Descripcion: </label>
-                        <input type="text" 
-                               name="txtDescripcionCategoria" 
-                               id="txtDescripcionCategoria" 
-                               placeholder="Descripcion de la categoria"
-                               required
-                               maxlenght="100"
-                               value="<c:out value="${categoria.entidad.descripcionCategoria}"/>"
-                               class="form-control" />
-                    </div>
-                    <button type="submit" class="btn btn-outline-primary">Guadar Cambios</button>     
-                </form>
-            </div>
+                </div>
+            </center>
         </div>
     </body>
 </html>

@@ -152,7 +152,16 @@ public class CategoriaServlet extends HttpServlet {
         CategoriaDTO dto = new CategoriaDTO();
         dto.getEntidad().setIdCategoria(Integer.parseInt(request.getParameter("id")));
 
-        dao.delete(dto);
+        dto = dao.delete(dto);
+        
+        if(dto!= null){
+            request.setAttribute("mensaje", "<b>"+dto.getEntidad().getNombreCategoria()+"</b> eliminada correctamente.");
+            request.setAttribute("alert", "alert-warning");
+        }else{
+            request.setAttribute("mensaje", "Ocurrio un error al eliminar <b>"+dto.getEntidad().getNombreCategoria()+"</b>.");
+            request.setAttribute("alert", "alert-danger");
+        }      
+        
         listaDeCategorias(request, response);
     }
 
@@ -202,11 +211,13 @@ public class CategoriaServlet extends HttpServlet {
         
         if(!request.getParameter("txtIdCategoria").equals("")){//CREAR
             dao.update(dto);
-            request.setAttribute("mensaje", "Categoria actualizada con exito.");
+            request.setAttribute("mensaje", "<b>"+dto.getEntidad().getNombreCategoria()+"</b> actualizada con exito.");
+            request.setAttribute("alert", "alert-warning");
         }else{
             dao.create(dto);
-            request.setAttribute("mensaje", "Categoria agregada con exito.");
-        }
+            request.setAttribute("mensaje", "<b>"+dto.getEntidad().getNombreCategoria()+"</b> almacenada con exito.");
+            request.setAttribute("alert", "alert-success");
+        }        
         listaDeCategorias(request, response);
         
     }

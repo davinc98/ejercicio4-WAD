@@ -19,49 +19,60 @@
         <title>Datos de Producto</title>
     </head>
     <body>
-        <h1>Producto</h1>
+        <h1>Ver Producto</h1>
 
         <div class="container">
 
 
 
 
+            <center>
+                <div class="col-sm-4">
 
-            <div class="card bg-light">
-                <div class="card-header">
-                    <h3 class="text-center">Datos de Producto</h3>
-                </div>
-                <div class="card-body">
-                    <center>
-                        <img src="./imagenes/bootstrap-logo.svg" alt="" width="200" height="240" class="d-inline-block align-text-top">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                
-                                <c:out value="${producto.entidad.idProducto}" />
-                            </li>
-                            <li class="list-group-item">
-                                <c:out value="${producto.entidad.nombreProducto}" />
-                            </li>
-                            <li class="list-group-item">
-                                <c:out value="${producto.entidad.descripcionProducto}" />
-                            </li>
-                            <li class="list-group-item">
-                                <c:out value="${producto.entidad.precio}" />
-                            </li>
-                            <li class="list-group-item">
-                                <c:out value="${producto.entidad.existencia}" />
-                            </li>
-                            <li class="list-group-item">
-                                <c:out value="${producto.entidad.stockMinimo}" />
-                            </li>
-                            <li class="list-group-item">
-                                <c:out value="${producto.entidad.claveCategoria}" />
-                            </li>
-                        </ul>
-                    </center>
-                </div>
-            </div>
+                    <div class="card bg-light">
+                        <div class="card-header">
+                            <h3 class="text-center">Producto</h3>
+                        </div>
+                        <div class="card-body">
+                            <center>
+                                <img src="./imagenes/prod.png" alt="" width="200" class="d-inline-block align-text-top">
+                                <br/><br/>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        Clave del Producto:
+                                        <b><c:out value=" ${producto.entidad.idProducto}" /></b>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Nombre del Producto:
+                                        <b><c:out value=" ${producto.entidad.nombreProducto}" /></b>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Descripción:
+                                        <b><c:out value=" ${producto.entidad.descripcionProducto}" /></b>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Precio:
+                                        <b><c:out value=" ${producto.entidad.precio}" /></b>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Existencia: 
+                                        <b><c:out value=" ${producto.entidad.existencia}" /></b>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Stock Mínimo:
+                                        <b><c:out value=" ${producto.entidad.stockMinimo}" /></b>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Categoría:
+                                        <b><c:out value=" ${producto.entidad.claveCategoria.nombreCategoria}" /></b>
+                                    </li>
+                                </ul>
+                            </center>
+                        </div>
+                    </div>
 
+                </div>
+            </center>
         </div>
     </body>
 </html>

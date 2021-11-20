@@ -24,7 +24,7 @@
 
 
 
-            
+
             <br/>
             <h1>Categorias</h1>
             <br/>
@@ -37,7 +37,7 @@
                     </h4>
                 </div>
                 <div class="col">
-                    
+
                 </div>
                 <div class="col col-lg-2">
                     <h4 class="card-title">
@@ -53,18 +53,19 @@
 
             <br/>
             
-            <div class="card border-primary">
+            <c:if test="${mensaje != null}">
+                <div class="alert ${alert} alert-dismissible fade show" role="alert">
+                    <p>${mensaje}</p>
+                    <button class="btn-close" data-bs-dismiss="alert" aria-lbel="Close"></button>
+                </div>
+            </c:if>
+
+
+            <div class="card bg-light">
                 <div class="card-header text-center">
                     Categorias
                 </div>
                 <div class="card-body">
-
-                    <c:if test="${mensaje != null}">
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>${mensaje}</strong>
-                            <button class="btn-close" data-bs-dismiss="alert" aria-lbel="Close"></button>
-                        </div>
-                    </c:if>
 
                     <table class="table table-striped">
                         <thead>

@@ -49,18 +49,24 @@ public class ProductoDAO {
         }
     }
     
-    public void delete(ProductoDTO dto){
+    public ProductoDTO delete(ProductoDTO dto){
         Session s = HibernateUtil.getSessiobFactory().getCurrentSession();
         Transaction tx = s.getTransaction();
         try{
             tx.begin();
+            
+            //recuperar entidad completa
+            dto.setEntidad(s.get(dto.getEntidad().getClass(), dto.getEntidad().getIdProducto()));
+            
             s.delete(dto.getEntidad());
             tx.commit();
         }catch(HibernateException e){
             if(tx != null && tx.isActive()){
                 tx.rollback();
             }
+            return null;
         }
+        return dto;
     }
     
     public ProductoDTO read(ProductoDTO dto){

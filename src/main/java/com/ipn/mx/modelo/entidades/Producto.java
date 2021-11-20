@@ -35,7 +35,8 @@ public class Producto implements Serializable {
     private int existencia;
     private int stockMinimo;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+//    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="idCategoria")
     private Categoria claveCategoria;
 

@@ -26,26 +26,57 @@
 
 
 
-
-            <div class="card bg-light">
-                <div class="card-header">
-                    <h3 class="text-center">Datos de Usuario</h3>
+            <center>
+                <div class="col-sm-6">
+                    <div class="card bg-light">
+                        <div class="card-header">
+                            <h3 class="text-center">Datos de Usuario</h3>
+                        </div>
+                        <div class="card-body">
+                            <img src="./imagenes/user.png" alt="" width="200" class="d-inline-block align-text-top">
+                            <br/><br/>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    ID:
+                                    <b><c:out value="${usuario.entidad.idUsuario}" /></b>
+                                </li>
+                                <li class="list-group-item">
+                                    Usuario:
+                                    <b><c:out value="${usuario.entidad.nombreUsuario}" /></b>
+                                </li>
+                                <li class="list-group-item">
+                                    Contrasena:
+                                    <b><c:out value="${usuario.entidad.claveUsuario}" /></b>
+                                </li>
+                                <li class="list-group-item">
+                                    Nombre(s):
+                                    <b><c:out value="${usuario.entidad.nombre}" /></b>
+                                </li>
+                                <li class="list-group-item">
+                                    Paterno:
+                                    <b><c:out value="${usuario.entidad.paterno}" /></b>
+                                </li>
+                                <li class="list-group-item">
+                                    Materno:
+                                    <b><c:out value="${usuario.entidad.materno}" /></b>
+                                </li>
+                                <li class="list-group-item">
+                                    Correo:
+                                    <b><c:out value="${usuario.entidad.email}" /></b>
+                                </li>
+                                <li class="list-group-item">
+                                    Tipo: 
+                                    <b><c:out value="${usuario.entidad.tipoUsuario}" /></b>
+                                </li>
+                                <li class="list-group-item">
+                                    Creado: 
+                                    <b><c:out value="${usuario.entidad.createdAt}" /></b>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <img src="./imagenes/bootstrap-logo.svg" alt="" width="200" height="240" class="d-inline-block align-text-top">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <c:out value="${usuario.entidad.idUsuario}" />
-                        </li>
-                        <li class="list-group-item">
-                            <c:out value="${usuario.entidad.nombreUsuario}" />
-                        </li>
-                        <li class="list-group-item">
-                            <c:out value="${usuario.entidad.claveUsuario}" />
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            </center>
 
         </div>
     </body>

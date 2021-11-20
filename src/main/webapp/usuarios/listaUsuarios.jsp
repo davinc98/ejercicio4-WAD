@@ -24,7 +24,7 @@
 
 
 
-            
+
             <br/>
             <h1>Usuarios</h1>
             <br/>
@@ -33,72 +33,99 @@
             <div class="row">
                 <div class="col col-lg-2">
                     <h4 class="card-title">
-                        <a href="CategoriaServlet?accion=nuevo" class="btn btn-outline-success">Crear Categoria</a>
+                        <a href="UsuarioServlet?accion=nuevo" class="btn btn-outline-success">Crear Usuario</a>
                     </h4>
                 </div>
                 <div class="col">
-                    
+
                 </div>
                 <div class="col col-lg-2">
                     <h4 class="card-title">
-                        <a href="CategoriaServlet?accion=graficar" class="btn btn-outline-primary" target="_blank">Mostrar Grafica</a>
+                        <!--<a href="UsuarioServlet?accion=graficar" class="btn btn-outline-primary" target="_blank">Mostrar Grafica</a>-->
                     </h4>
                 </div>                 
                 <div class="col col-lg-2">
                     <h4 class="card-title">
-                        <a href="CategoriaServlet?accion=verReporte" class="btn btn-outline-danger" target="_blank">Mostrar Reporte</a>
+                        <!--<a href="UsuarioServlet?accion=verReporte" class="btn btn-outline-danger" target="_blank">Mostrar Reporte</a>-->
                     </h4>
                 </div>
             </div>
 
             <br/>
-            
-            <div class="card border-primary">
+            <c:if test="${mensaje != null}">
+                <div class="alert ${alert} alert-dismissible fade show" role="alert">
+                    <p>${mensaje}</p>
+                    <button class="btn-close" data-bs-dismiss="alert" aria-lbel="Close"></button>
+                </div>
+            </c:if>
+
+            <div class="card bg-light">
                 <div class="card-header text-center">
-                    Categorias
+                    Usuarios
                 </div>
                 <div class="card-body">
 
-                    <c:if test="${mensaje != null}">
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>${mensaje}</strong>
-                            <button class="btn-close" data-bs-dismiss="alert" aria-lbel="Close"></button>
-                        </div>
-                    </c:if>
+
 
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Clave</th>
-                                <th>Nombre</th>
-                                <th>Descripcion</th>
+                                <th>Id</th>
+                                <th>Usuario</th>
+                                <!--<th>Contrasenia</th>-->
+                                <th>Nombre (s)</th>
+                                <th>Paterno</th>
+                                <th>Materno</th>
+                                <th>Correo</th>
+                                <th>Tipo</th>
+                                <th>Imagen</th>
+                                <th>Creado</th>
+
                                 <th>Eliminar</th>
                                 <th>Actualizar</th>
-                                <th>Reporte</th>
                             </tr>
                         </thead>
-                        <c:forEach items="${listaDeCategorias}" var="dto" >
+                        <c:forEach items="${listaDeUsuarios}" var="dto" >
                             <tbody>
                                 <tr>
                                     <td>
-                                        <a href="CategoriaServlet?accion=ver&id=<c:out value="${ dto.entidad.idCategoria }"/>" class="btn btn-outline-warning">
-                                            <c:out value="${ dto.entidad.idCategoria }"/>
+                                        <a href="UsuarioServlet?accion=ver&id=<c:out value="${ dto.entidad.idUsuario }"/>" class="btn btn-outline-warning">
+                                            <c:out value="${ dto.entidad.idUsuario }"/>
                                         </a>
                                     </td>
                                     <td>
-                                        <c:out value="${ dto.entidad.nombreCategoria }"/>
+                                        <c:out value="${ dto.entidad.nombreUsuario }"/>
+                                    </td>
+<!--                                    <td>
+                                        <c:out value="${ dto.entidad.claveUsuario }"/>
+                                    </td>-->
+                                    <td>
+                                        <c:out value="${ dto.entidad.nombre }"/>
                                     </td>
                                     <td>
-                                        <c:out value="${ dto.entidad.descripcionCategoria }"/>
+                                        <c:out value="${ dto.entidad.paterno }"/>
                                     </td>
                                     <td>
-                                        <a href="CategoriaServlet?accion=eliminar&id=<c:out value="${ dto.entidad.idCategoria }"/>" class="btn btn-outline-danger">Eliminar</a>
+                                        <c:out value="${ dto.entidad.materno }"/>
                                     </td>
                                     <td>
-                                        <a href="CategoriaServlet?accion=actualizar&id=<c:out value="${ dto.entidad.idCategoria }"/>" class="btn btn-outline-success">Actualizar</a>
+                                        <c:out value="${ dto.entidad.email }"/>
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-outline-info">Reporte</a>
+                                        <c:out value="${ dto.entidad.tipoUsuario }"/>
+                                    </td>
+                                    <td>
+                                        <c:out value="${ dto.entidad.imagen }"/>
+                                        <img src="./imagenes/user.png" width="30">
+                                    </td>
+                                    <td>
+                                        <c:out value="${ dto.entidad.createdAt }"/>
+                                    </td>                                    
+                                    <td>
+                                        <a href="UsuarioServlet?accion=eliminar&id=<c:out value="${ dto.entidad.idUsuario }"/>" class="btn btn-outline-danger">Eliminar</a>
+                                    </td>
+                                    <td>
+                                        <a href="UsuarioServlet?accion=actualizar&id=<c:out value="${ dto.entidad.idUsuario }"/>" class="btn btn-outline-success">Actualizar</a>
                                     </td>
                                 </tr>
                             </tbody>

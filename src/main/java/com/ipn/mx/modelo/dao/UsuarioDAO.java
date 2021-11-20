@@ -48,7 +48,7 @@ public class UsuarioDAO {
         }
     }
     
-    public void delete(UsuarioDTO dto){
+    public UsuarioDTO delete(UsuarioDTO dto){
         Session s = HibernateUtil.getSessiobFactory().getCurrentSession();
         Transaction tx = s.getTransaction();
         try{
@@ -63,7 +63,9 @@ public class UsuarioDAO {
             if(tx != null && tx.isActive()){
                 tx.rollback();
             }
+            return null;
         }
+        return dto;
     }
     
     public UsuarioDTO read(UsuarioDTO dto){

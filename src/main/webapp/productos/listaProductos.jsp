@@ -55,7 +55,7 @@
             </c:if>
 
 
-            <div class="card border-primary">
+            <div class="card bg-light">
                 <div class="card-header text-center">
                     Productos
                 </div>

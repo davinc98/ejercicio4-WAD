@@ -26,7 +26,7 @@
 
     <center>
         <div class="col-sm-4">
-            <div class="card border-primary">
+            <div class="card bg-light">
                 <div class="card header">
                     <c:if test="${producto.entidad.idProducto != null}">
                         <h3>Actualizar Producto</h3>

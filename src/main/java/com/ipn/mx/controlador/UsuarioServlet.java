@@ -27,6 +27,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
+
 /**
  *
  * @author leoj_
@@ -140,7 +141,15 @@ public class UsuarioServlet extends HttpServlet {
         UsuarioDTO dto = new UsuarioDTO();
         dto.getEntidad().setIdUsuario(Integer.parseInt(request.getParameter("id")));
 
-        dao.delete(dto);
+        dto = dao.delete(dto);
+        
+        if(dto!= null){
+            request.setAttribute("mensaje", "Usuario <b>"+dto.getEntidad().getNombreUsuario()+"</b> eliminado correctamente.");
+            request.setAttribute("alert", "alert-warning");
+        }else{
+            request.setAttribute("mensaje", "Ocurrio un error al eliminar Usuario: <b>"+dto.getEntidad().getNombreUsuario()+"</b>.");
+            request.setAttribute("alert", "alert-danger");
+        } 
         listaDeUsuarios(request, response);
     }
 
@@ -192,9 +201,10 @@ public class UsuarioServlet extends HttpServlet {
         dto.getEntidad().setMaterno(request.getParameter("txtMaterno"));
         dto.getEntidad().setEmail(request.getParameter("txtEmail"));
         dto.getEntidad().setTipoUsuario(request.getParameter("txtTipoUsuario"));
-        dto.getEntidad().setImagen(request.getParameter("txtImagen"));        
-
-        String txtFecha = request.getParameter("txtFecha");
+        dto.getEntidad().setImagen(request.getParameter("txtImagen"));  
+        
+//        String txtFecha = request.getParameter("txtFecha");
+        String txtFecha = "2021-11-20";
         try {
             dto.getEntidad().setCreatedAt(new SimpleDateFormat("yyyy-MM-dd").parse(txtFecha));
         } catch (ParseException ex) {
@@ -204,9 +214,11 @@ public class UsuarioServlet extends HttpServlet {
         if(!request.getParameter("txtIdUsuario").equals("")){//CREAR
             dao.update(dto);
             request.setAttribute("mensaje", "Usuario actualizado.");
+            request.setAttribute("alert", "alert-warning");
         }else{
             dao.create(dto);
             request.setAttribute("mensaje", "Usuario creado.");
+            request.setAttribute("alert", "alert-success");
         }
         listaDeUsuarios(request, response);
         

@@ -9,7 +9,12 @@ package com.ipn.mx.controlador;
 //import com.ipn.mx.modelo.dto.GraficaDTO;
 import com.ipn.mx.modelo.dao.UsuarioDAO;
 import com.ipn.mx.modelo.dto.UsuarioDTO;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -17,23 +22,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
-
 /**
  *
  * @author leoj_
  */
+@MultipartConfig
 @WebServlet(name = "UsuarioServlet", urlPatterns = {"/UsuarioServlet"})
 public class UsuarioServlet extends HttpServlet {
+
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -142,14 +151,14 @@ public class UsuarioServlet extends HttpServlet {
         dto.getEntidad().setIdUsuario(Integer.parseInt(request.getParameter("id")));
 
         dto = dao.delete(dto);
-        
-        if(dto!= null){
-            request.setAttribute("mensaje", "Usuario <b>"+dto.getEntidad().getNombreUsuario()+"</b> eliminado correctamente.");
+
+        if (dto != null) {
+            request.setAttribute("mensaje", "Usuario <b>" + dto.getEntidad().getNombreUsuario() + "</b> eliminado correctamente.");
             request.setAttribute("alert", "alert-warning");
-        }else{
-            request.setAttribute("mensaje", "Ocurrio un error al eliminar Usuario: <b>"+dto.getEntidad().getNombreUsuario()+"</b>.");
+        } else {
+            request.setAttribute("mensaje", "Ocurrio un error al eliminar Usuario: <b>" + dto.getEntidad().getNombreUsuario() + "</b>.");
             request.setAttribute("alert", "alert-danger");
-        } 
+        }
         listaDeUsuarios(request, response);
     }
 
@@ -191,9 +200,13 @@ public class UsuarioServlet extends HttpServlet {
         UsuarioDAO dao = new UsuarioDAO();
         UsuarioDTO dto = new UsuarioDTO();
         
-        if(!request.getParameter("txtIdUsuario").equals(""))
+        String pathFiles = request.getRealPath("/");
+        File uploads = new File(pathFiles);
+
+        if (!request.getParameter("txtIdUsuario").equals("")) {
             dto.getEntidad().setIdUsuario(Integer.parseInt(request.getParameter("txtIdUsuario")));
-        
+        }
+
         dto.getEntidad().setNombreUsuario(request.getParameter("txtNombreUsuario"));
         dto.getEntidad().setClaveUsuario(request.getParameter("txtClaveUsuario"));
         dto.getEntidad().setNombre(request.getParameter("txtNombre"));
@@ -201,8 +214,25 @@ public class UsuarioServlet extends HttpServlet {
         dto.getEntidad().setMaterno(request.getParameter("txtMaterno"));
         dto.getEntidad().setEmail(request.getParameter("txtEmail"));
         dto.getEntidad().setTipoUsuario(request.getParameter("txtTipoUsuario"));
-        dto.getEntidad().setImagen(request.getParameter("txtImagen"));  
-        
+
+        //RECUPERAR Y ALMACENAR LA IMAGEN=======================================
+        try {
+            Part part = request.getPart("txtImagen");
+            if (part == null) {
+                //No se selcciono ningun archivo
+            } else {
+                if (esExtensionImagen(part.getSubmittedFileName())) {//Verifica ext
+                    String fileName = guardarArchivo(part, uploads, request.getParameter("txtNombreUsuario"));
+                    dto.getEntidad().setImagen(fileName.replace("\\", "/"));
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(UsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ServletException ex) {
+            Logger.getLogger(UsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //======================================================================
+
 //        String txtFecha = request.getParameter("txtFecha");
         String txtFecha = "2021-11-20";
         try {
@@ -210,18 +240,53 @@ public class UsuarioServlet extends HttpServlet {
         } catch (ParseException ex) {
             Logger.getLogger(UsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if(!request.getParameter("txtIdUsuario").equals("")){//CREAR
+
+        if (!request.getParameter("txtIdUsuario").equals("")) {//CREAR
             dao.update(dto);
             request.setAttribute("mensaje", "Usuario actualizado.");
             request.setAttribute("alert", "alert-warning");
-        }else{
+        } else {
             dao.create(dto);
             request.setAttribute("mensaje", "Usuario creado.");
             request.setAttribute("alert", "alert-success");
         }
         listaDeUsuarios(request, response);
-        
+
+    }
+
+    private String guardarArchivo(Part part, File pathUploads, String nombreUsuario) {
+        String pathAbsolute = "";
+        String fileName = "";
+        try {
+            Path path = Paths.get(part.getSubmittedFileName());
+            String fileNameExt = path.getFileName().toString();
+            int i = fileNameExt.lastIndexOf('.');
+
+            String ext = "";
+            ext = fileNameExt.substring(i);
+
+            fileName = "img-usr" + nombreUsuario + ext;
+            InputStream input = part.getInputStream();
+
+            if (input != null) {
+                File file = new File(pathUploads, fileName);
+                pathAbsolute = file.getAbsolutePath();
+                Files.copy(input, file.toPath());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        return pathAbsolute;
+        return fileName;
+    }
+
+    private boolean esExtensionImagen(String fileName) {
+        String[] extenciones = {".ico", ".png", ".jpg", ".jpeg"};
+        for (String ext : extenciones) 
+            if (fileName.toLowerCase().endsWith(ext)) 
+                return true;
+                   
+        return false;
     }
 
 }

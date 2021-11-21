@@ -115,8 +115,10 @@
                                         <c:out value="${ dto.entidad.tipoUsuario }"/>
                                     </td>
                                     <td>
-                                        <c:out value="${ dto.entidad.imagen }"/>
-                                        <img src="./imagenes/user.png" width="30">
+                                        <%--<c:out value="${dto.entidad.imagen}"/>--%>
+                                        <img src="http://localhost:8080/ejercicio4/${dto.entidad.imagen}" width="40">
+                                        
+                                        <!--<img src="https://ejercicio4-wad.herokuapp.com/${dto.entidad.imagen}" width="30">-->
                                     </td>
                                     <td>
                                         <c:out value="${ dto.entidad.createdAt }"/>

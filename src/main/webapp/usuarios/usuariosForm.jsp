@@ -42,7 +42,7 @@
                             <h1 class="text-center">Datos Usuario</h1>
                         </div>
                         <div class="card card-body">
-                            <form method="post" action="UsuarioServlet?accion=guardar">
+                            <form method="post" action="UsuarioServlet?accion=guardar" enctype="multipart/form-data">
                                 <div class="mb-3">
                                     <!--<label class="form-label">ID </label>-->
                                     <input type="text" 
@@ -135,7 +135,7 @@
                                     <input type="file" 
                                            name="txtImagen" 
                                            id="txtImagen" 
-                                           placeholder="Imagen"
+                                           placeholder="Subir imagen"
                                            maxlenght="100"
                                            value="<c:out value="${usuario.entidad.imagen}"/>"
                                            class="form-control" />

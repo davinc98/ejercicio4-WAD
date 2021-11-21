@@ -115,7 +115,8 @@
                                         <c:out value="${ dto.entidad.tipoUsuario }"/>
                                     </td>
                                     <td>
-                                        <c:out value="${dto.entidad.imagen}"/>                                        
+                                        <c:out value="${dto.entidad.imagen}"/>
+                                        
                                         <img src="${dto.entidad.imagen}" width="40">
                                     </td>
                                     <td>

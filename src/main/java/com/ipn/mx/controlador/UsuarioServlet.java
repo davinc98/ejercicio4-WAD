@@ -222,8 +222,8 @@ public class UsuarioServlet extends HttpServlet {
                 //No se selcciono ningun archivo
             } else {
                 if (esExtensionImagen(part.getSubmittedFileName())) {//Verifica ext
-                    String fileName = guardarArchivo(part, uploads, request.getParameter("txtNombreUsuario"));
-                    dto.getEntidad().setImagen(fileName.replace("\\", "/"));
+                    String pathFile = guardarArchivo(part, uploads, request.getParameter("txtNombreUsuario"));
+                    dto.getEntidad().setImagen(pathFile.replace("\\", "/"));
                 }
             }
         } catch (IOException ex) {
@@ -257,7 +257,9 @@ public class UsuarioServlet extends HttpServlet {
     private String guardarArchivo(Part part, File pathUploads, String nombreUsuario) {
         String pathAbsolute = "";
         String fileName = "";
-        try {
+        String pathConexion = "https://ejercicio4-wad.herokuapp.com/";
+//        String pathConexion = "http://localhost:8080/ejercicio4/";
+        try { 
             Path path = Paths.get(part.getSubmittedFileName());
             String fileNameExt = path.getFileName().toString();
             int i = fileNameExt.lastIndexOf('.');
@@ -276,9 +278,8 @@ public class UsuarioServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
 //        return pathAbsolute;
-        return fileName;
+        return pathConexion+fileName;
     }
 
     private boolean esExtensionImagen(String fileName) {

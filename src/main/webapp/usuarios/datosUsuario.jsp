@@ -33,7 +33,7 @@
                             <h3 class="text-center">Datos de Usuario</h3>
                         </div>
                         <div class="card-body">
-                            <img src="http://localhost:8080/ejercicio4/${usuario.entidad.imagen}" 
+                            <img src="${usuario.entidad.imagen}" 
                                  alt="Usuario" width="200" class="d-inline-block align-text-top">
                             <br/><br/>
                             <ul class="list-group">

@@ -42,7 +42,7 @@ import org.jfree.data.general.PieDataset;
 @WebServlet(name = "UsuarioServlet", urlPatterns = {"/UsuarioServlet"})
 public class UsuarioServlet extends HttpServlet {
 
-    
+    private static final Logger logger = Logger.getLogger(UsuarioServlet.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -202,6 +202,12 @@ public class UsuarioServlet extends HttpServlet {
         
         String pathFiles = request.getRealPath("/");
         File uploads = new File(pathFiles);
+        
+        //Recuperar la url de la app: https://www.it-swarm-es.com/es/jsp/como-obtener-la-url-del-dominio-y-el-nombre-de-la-aplicacion/968427622/
+        String pathConexion = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath()+"/";
+        logger.log(Level.INFO, pathConexion);
+        
+        String msg = "";
 
         if (!request.getParameter("txtIdUsuario").equals("")) {
             dto.getEntidad().setIdUsuario(Integer.parseInt(request.getParameter("txtIdUsuario")));
@@ -216,15 +222,21 @@ public class UsuarioServlet extends HttpServlet {
         dto.getEntidad().setTipoUsuario(request.getParameter("txtTipoUsuario"));
 
         //RECUPERAR Y ALMACENAR LA IMAGEN=======================================
+        dto.getEntidad().setImagen(request.getParameter("txtImgAnterior"));
         try {
             Part part = request.getPart("txtImagen");
-            if (part == null) {
-                //No se selcciono ningun archivo
-            } else {
+            if (part != null) {
                 if (esExtensionImagen(part.getSubmittedFileName())) {//Verifica ext
-                    String pathFile = guardarArchivo(part, uploads, request.getParameter("txtNombreUsuario"));
-                    dto.getEntidad().setImagen(pathFile.replace("\\", "/"));
+                    
+                    //Almacenar imagen en el sistema de archivos
+                    String fileName = guardarArchivo(part, uploads, request.getParameter("txtNombreUsuario"));
+             
+                    dto.getEntidad().setImagen(pathConexion+fileName);
+                }else{
+                    msg+=":: Imagen no cargada.";
                 }
+            }else{
+                msg+=":: Sin cambio de imagen.";
             }
         } catch (IOException ex) {
             Logger.getLogger(UsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -243,11 +255,12 @@ public class UsuarioServlet extends HttpServlet {
 
         if (!request.getParameter("txtIdUsuario").equals("")) {//CREAR
             dao.update(dto);
-            request.setAttribute("mensaje", "Usuario actualizado.");
+            
+            request.setAttribute("mensaje", "Usuario <b>"+dto.getEntidad().getNombreUsuario()+"</b> actualizado."+msg);
             request.setAttribute("alert", "alert-warning");
         } else {
             dao.create(dto);
-            request.setAttribute("mensaje", "Usuario creado.");
+            request.setAttribute("mensaje", "Usuario <b>"+dto.getEntidad().getNombreUsuario()+"</b> creado."+msg);
             request.setAttribute("alert", "alert-success");
         }
         listaDeUsuarios(request, response);
@@ -257,8 +270,7 @@ public class UsuarioServlet extends HttpServlet {
     private String guardarArchivo(Part part, File pathUploads, String nombreUsuario) {
         String pathAbsolute = "";
         String fileName = "";
-        String pathConexion = "https://ejercicio4-wad.herokuapp.com/";
-//        String pathConexion = "http://localhost:8080/ejercicio4/";
+
         try { 
             Path path = Paths.get(part.getSubmittedFileName());
             String fileNameExt = path.getFileName().toString();
@@ -279,7 +291,7 @@ public class UsuarioServlet extends HttpServlet {
             e.printStackTrace();
         }
 //        return pathAbsolute;
-        return pathConexion+fileName;
+        return fileName;
     }
 
     private boolean esExtensionImagen(String fileName) {

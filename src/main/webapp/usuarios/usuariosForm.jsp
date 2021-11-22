@@ -51,6 +51,13 @@
                                            placeholder="Id del usuario"
                                            readonly value="<c:out value="${usuario.entidad.idUsuario}"/>"
                                            class="form-control" hidden="true" />
+                                    
+<!--                                    Para obtener el path de la imagen si es que ya existia una-->
+                                    <input type="text" 
+                                           name="txtImgAnterior" 
+                                           id="txtImgAnterior" 
+                                           readonly value="<c:out value="${usuario.entidad.imagen}"/>"
+                                           class="form-control" hidden="true" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Nombre Usuario: </label>
@@ -131,7 +138,6 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Selecciona una imagen: </label>
-                                    <img src="<c:out value="${usuario.entidad.imagen}"/>" width="10">
                                     <input type="file" 
                                            name="txtImagen" 
                                            id="txtImagen" 

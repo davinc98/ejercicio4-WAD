@@ -234,8 +234,11 @@ public class UsuarioServlet extends HttpServlet {
                     dto.getEntidad().setImagen(pathConexion+fileName);
                 }else{
                     msg+=":: Imagen no cargada.";
+//                    if(dto.getEntidad().getImagen().equals(""))
+//                        dto.getEntidad().setImagen("/img/user.png");
                 }
             }else{
+                
                 msg+=":: Sin cambio de imagen.";
             }
         } catch (IOException ex) {

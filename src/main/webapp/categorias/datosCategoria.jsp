@@ -22,18 +22,18 @@
 
         <div class="container">
 
-            <h1>Ver Categoría</h1>
 
-            
-            
-            
 
+            <br/>
+            <br/>         
 
             <center>
+                <!--<h1 style="color: activecaption">Ver Categoría</h1>-->
+                <br/>
                 <div class="col-sm-4">
                     <div class="card bg-light">
                         <div class="card-header">
-                            <h3 class="text-center">Categoría</h3>
+                            <h3 class="text-center"> Ver Categoría</h3>
                         </div>
                         <div class="card-body">
                             <img src="./imagenes/graycat.png" alt="" width="200" class="d-inline-block align-text-top">
@@ -44,12 +44,15 @@
                                     <b><c:out value=" ${categoria.entidad.idCategoria}" /></b>
                                 </li>
                                 <li class="list-group-item">
-                                    Nombre Categoría:
+                                    Nombre Categoría:<br/>
                                     <b><c:out value=" ${categoria.entidad.nombreCategoria}" /></b>
                                 </li>
                                 <li class="list-group-item">
-                                    Descripción:
+                                    Descripción:<br/>
                                     <b><c:out value=" ${categoria.entidad.descripcionCategoria}" /></b>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="CategoriaServlet?accion=listaDeCategorias" class="btn btn-outline-success">Regresar</a>
                                 </li>
                             </ul>
                         </div>

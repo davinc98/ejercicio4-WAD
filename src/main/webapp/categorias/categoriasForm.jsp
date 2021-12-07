@@ -24,11 +24,8 @@
 
             <center>
 
-                
-                
-                
-                
-
+                <br/>
+                <br/>
 
                 <div class="col-sm-4">
 
@@ -40,6 +37,7 @@
                             <c:if test="${categoria.entidad.idCategoria == null}">
                                 <h3>Crear Categoria</h3>
                             </c:if>
+
                         </div>
                         <div class="card card-body">
                             <center>
@@ -86,6 +84,8 @@
                                         </li>
                                     </ul>
                                 </form>
+                                <br/>
+                                <a href="CategoriaServlet?accion=listaDeCategorias" class="btn btn-outline-success">Regresar</a>
                             </center>
                         </div>
                     </div>

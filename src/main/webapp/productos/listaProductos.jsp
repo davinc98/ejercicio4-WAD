@@ -21,11 +21,49 @@
         <div class="container">
 
 
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img src="/imagenes/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                        J. Perez
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="index.jsp">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="CategoriaServlet?accion=listaDeCategorias">Categorias</a>
+                            </li>
+<!--                            <li class="nav-item">
+                                <a class="nav-link" href="CategoriaServlet?accion=nuevo">Nueva Categoria</a>
+                            </li>-->
+                            <li class="nav-item">
+                                <a class="nav-link" href="ProductoServlet?accion=listaDeProductos">Productos</a>
+                            </li>
+<!--                            <li class="nav-item">
+                                <a class="nav-link" href="ProductoServlet?accion=nuevo">Nuevo Producto</a>
+                            </li>-->
+                            <li class="nav-item">
+                                <a class="nav-link" href="UsuarioServlet?accion=listaDeUsuarios">Usuarios</a>
+                            </li>
+<!--                            <li class="nav-item">
+                                <a class="nav-link" href="UsuarioServlet?accion=nuevo">Nuevo Usuario</a>
+                            </li>-->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
 
 
             
-            
+            <br/>
+            <h1>Productos</h1>
+            <br/>
+            <br/>
             
             
             
@@ -43,9 +81,12 @@
                 </div>                 
                 <div class="col col-lg-2">
                     <h4 class="card-title">
+                        <a href="ProductoServlet?accion=graficar" class="btn btn-outline-primary" target="_blank">Mostrar Grafica</a>
                     </h4>
                 </div>
             </div>
+            
+            <br/>
 
             <c:if test="${mensaje != null}">
                 <div class="alert ${alert} alert-dismissible fade show" role="alert">
@@ -72,7 +113,7 @@
                                 <th>Categoria</th>
                                 <th>Eliminar</th>
                                 <th>Actualizar</th>
-                                <th>Reporte</th>
+                                <!--<th>Reporte</th>-->
                             </tr>
                         </thead>
                         <c:forEach var="dto" items="${listaDeProductos}">
@@ -107,9 +148,9 @@
                                     <td>
                                         <a href="ProductoServlet?accion=actualizar&id=<c:out value="${ dto.entidad.idProducto }"/>" class="btn btn-outline-success">Actualizar</a>
                                     </td>
-                                    <td>
+<!--                                    <td>
                                         <a href="#" class="btn btn-outline-info">Reporte</a>
-                                    </td>
+                                    </td>-->
                                 </tr>
                             </tbody>
                         </c:forEach>

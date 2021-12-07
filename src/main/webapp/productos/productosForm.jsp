@@ -25,6 +25,8 @@
 
 
     <center>
+        <br/>
+        <br/>
         <div class="col-sm-4">
             <div class="card bg-light">
                 <div class="card header">
@@ -116,11 +118,16 @@
                                 <%}%>
                             </select>
                         </div>
-
-                        <button type="submit" class="btn btn-outline-primary">Guadar</button>     
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-outline-primary" type="button">Guadar</button>    
+                        </div>
+                        <div class="mb-3">
+                            <a href="ProductoServlet?accion=listaDeProductos" class="btn btn-outline-success">Regresar</a>   
+                        </div>
                     </form>
                 </div>
             </div>
-        </div></center>
+        </div>
+    </center>
 </body>
 </html>

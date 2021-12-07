@@ -6,11 +6,14 @@
 package com.ipn.mx.controlador;
 
 import com.ipn.mx.modelo.dao.CategoriaDAO;
+import com.ipn.mx.modelo.dao.ProductoDAO;
 //import com.ipn.mx.modelo.dao.GraficaDAO;
 import com.ipn.mx.modelo.dto.CategoriaDTO;
+import com.ipn.mx.modelo.dto.ProductoDTO;
 //import com.ipn.mx.modelo.dto.GraficaDTO;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -223,7 +226,7 @@ public class CategoriaServlet extends HttpServlet {
     }
 
     private void mostrarReporte(HttpServletRequest request, HttpServletResponse response) {
-        CategoriaDAO dao = new CategoriaDAO();
+//        CategoriaDAO dao = new CategoriaDAO();
 //        try {
 //            ServletOutputStream sos = response.getOutputStream();
 //            File reporte = new File(getServletConfig().getServletContext().getRealPath("/reportes/ReporteGeneral.jasper"));
@@ -237,18 +240,16 @@ public class CategoriaServlet extends HttpServlet {
 //            
 //        } catch (IOException ex) {
 //            Logger.getLogger(CategoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (JRException ex) {
-//            Logger.getLogger(CategoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
 //        }
     }
 
     private void mostrarGrafica(HttpServletRequest request, HttpServletResponse response) {
         JFreeChart grafica = ChartFactory.createPieChart("Productos por Categoria", 
                 obtenerGraficaProductosPorCategoria(), true, true, Locale.getDefault());        
-        String archivo = getServletConfig().getServletContext().getRealPath("/grafica.png");
+        String archivo = getServletConfig().getServletContext().getRealPath("/graficaCategorias.png");
         try {
             ChartUtils.saveChartAsPNG(new File(archivo), grafica, 500, 500);
-            RequestDispatcher vista = request.getRequestDispatcher("grafica.jsp");
+            RequestDispatcher vista = request.getRequestDispatcher("graficaCategorias.jsp");
             vista.forward(request, response);
         } catch (IOException | ServletException ex) {
             Logger.getLogger(CategoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -257,16 +258,25 @@ public class CategoriaServlet extends HttpServlet {
     
     private PieDataset obtenerGraficaProductosPorCategoria(){
         DefaultPieDataset dsPie = new DefaultPieDataset();
-//        GraficaDAO dao = new GraficaDAO();
-//        try {
-//            List datos = dao.graficarProductosPorCategoria();
-//            for (int i = 0; i < datos.size(); i++) {
-//                GraficaDTO dto = (GraficaDTO) datos.get(i);
-//                dsPie.setValue(dto.getNombreCategoria(), dto.getCantidad());
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(CategoriaServlet.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        CategoriaDAO dao = new CategoriaDAO();
+        ProductoDAO daoProd = new ProductoDAO();
+        
+        List cat = dao.readAll();
+        List prod = daoProd.readAll();
+        
+        int cont = 0;
+        for (int i = 0; i < cat.size(); i++) {
+            cont = 0;
+            
+            CategoriaDTO dto = (CategoriaDTO) cat.get(i);
+            for(int j = 0; j<prod.size(); j++){
+                ProductoDTO dtoProd = (ProductoDTO)prod.get(j);
+                if(dto.getEntidad().getIdCategoria()==dtoProd.getEntidad().getClaveCategoria().getIdCategoria())
+                    cont++;
+            }
+            if(cont>0)
+                dsPie.setValue("("+dto.getEntidad().getIdCategoria()+") "+dto.getEntidad().getNombreCategoria(), cont);
+        }
         return dsPie;
     }
 

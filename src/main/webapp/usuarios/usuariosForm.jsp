@@ -20,26 +20,18 @@
     </head>
     <body>
         <div class="container">
-
-
-
-
-
-
-            <c:if test="${usuario.entidad.idUsuario != null}">
-                <h1>Actualizar Usuario</h1>
-            </c:if>
-            <c:if test="${usuario.entidad.idUsuario == null}">
-                <h1>Nuevo Usuario</h1>
-            </c:if>
-
-
+            <br/><br/>
 
             <center>
                 <div class="col-sm-6">
                     <div class="card bg-light">
                         <div class="card header">
-                            <h1 class="text-center">Datos Usuario</h1>
+                            <c:if test="${usuario.entidad.idUsuario != null}">
+                                <h3>Actualizar Usuario</h3>
+                            </c:if>
+                            <c:if test="${usuario.entidad.idUsuario == null}">
+                                <h3>Nuevo Usuario</h3>
+                            </c:if>
                         </div>
                         <div class="card card-body">
                             <form method="post" action="UsuarioServlet?accion=guardar" enctype="multipart/form-data">
@@ -51,8 +43,8 @@
                                            placeholder="Id del usuario"
                                            readonly value="<c:out value="${usuario.entidad.idUsuario}"/>"
                                            class="form-control" hidden="true" />
-                                    
-<!--                                    Para obtener el path de la imagen si es que ya existia una-->
+
+                                    <!--                                    Para obtener el path de la imagen si es que ya existia una-->
                                     <input type="text" 
                                            name="txtImgAnterior" 
                                            id="txtImgAnterior" 
@@ -146,7 +138,13 @@
                                            value="<c:out value="${usuario.entidad.imagen}"/>"
                                            class="form-control" />
                                 </div>
-                                <button type="submit" class="btn btn-outline-primary">Guadar Cambios</button>     
+                                <div class="mb-3">
+                                    <button type="submit" class="btn btn-outline-primary">Guadar Cambios</button>   
+                                </div>        
+
+                                <div class="mb-3">
+                                    <a href="UsuarioServlet?accion=listaDeUsuarios" class="btn btn-outline-success">Regresar</a>
+                                </div>
                             </form>
                         </div>
                     </div>

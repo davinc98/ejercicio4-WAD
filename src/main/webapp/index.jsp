@@ -76,8 +76,7 @@
                 
                 <h1>HIBERNATE</h1>
                 <h1>Modelo ORM</h1>
-                <h5>Para este ejercicio se usó la dependencias de los ejemplos anteriores
-                adicionando la dependencia Hibernate, y cambio el modelo al ORM</h5>
+                <h5>Dependencia Hibernate y modelo ORM</h5>
             </center>
 
         </div>

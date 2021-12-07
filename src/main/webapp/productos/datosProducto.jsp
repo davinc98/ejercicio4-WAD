@@ -19,19 +19,20 @@
         <title>Datos de Producto</title>
     </head>
     <body>
-        <h1>Ver Producto</h1>
+        <!--<h1>Ver Producto</h1>-->
 
         <div class="container">
 
 
-
+            <br/>
+            <br/>
 
             <center>
                 <div class="col-sm-4">
 
                     <div class="card bg-light">
                         <div class="card-header">
-                            <h3 class="text-center">Producto</h3>
+                            <h3 class="text-center">Ver Producto</h3>
                         </div>
                         <div class="card-body">
                             <center>
@@ -65,6 +66,9 @@
                                     <li class="list-group-item">
                                         Categoría:
                                         <b><c:out value=" ${producto.entidad.claveCategoria.nombreCategoria}" /></b>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="ProductoServlet?accion=listaDeProductos" class="btn btn-outline-success">Regresar</a>
                                     </li>
                                 </ul>
                             </center>

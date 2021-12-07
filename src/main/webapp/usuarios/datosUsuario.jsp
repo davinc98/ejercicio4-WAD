@@ -19,12 +19,11 @@
         <title>Datos de Usuario</title>
     </head>
     <body>
-        <h1>Usuario</h1>
+        <!--<h1>Usuario</h1>-->
 
         <div class="container">
 
-
-
+            <br/><br/>
 
             <center>
                 <div class="col-sm-6">
@@ -72,6 +71,9 @@
                                 <li class="list-group-item">
                                     Creado: 
                                     <b><c:out value="${usuario.entidad.createdAt}" /></b>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="UsuarioServlet?accion=listaDeUsuarios" class="btn btn-outline-success">Regresar</a>
                                 </li>
                             </ul>
                         </div>
